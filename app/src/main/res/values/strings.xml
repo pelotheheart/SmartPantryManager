@@ -3,4 +3,8 @@
     <string name="manage_pantry_items">Manage Pantry Items</string>
     <string name="view_pantry_items">View Pantry Items</string>
     <string name="recipe_collection">Recipe Collection</string>
+    <string name="menuHome"> Home</string>>
+    <string name="menu_managePantryItems"> Manage Pantry Items</string>>
+    <string name="menu_viewPantryItems"> View Pantry Items</string>>
+    <string name="menu_recipeCollection"> Recipe Collection</string>>
 </resources>

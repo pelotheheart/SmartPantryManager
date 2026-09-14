@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_home"
+        android:title="@string/menuHome" />
+
+    <item
+        android:id="@+id/menu_manage_items"
+        android:title="@string/menu_managePantryItems"/>
+
+    <item
+        android:id="@+id/menu_view_items"
+        android:title="@string/menu_viewPantryItems" />
+
+    <item
+        android:id="@+id/menu_recipe_collection"
+        android:title="@string/menu_recipeCollection" />
+
+</menu>
+

@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FBFEFF"
     tools:context=".MainActivity">
 
     <TextView
@@ -23,7 +24,7 @@
     <Button
         android:id="@+id/manageItemsBtn"
         style="@android:style/Widget.Button"
-        android:layout_width="330dp"
+        android:layout_width="320dp"
         android:layout_height="110dp"
         android:background="@color/teal_200"
         android:text="@string/manage_pantry_items"
@@ -42,7 +43,7 @@
     <Button
         android:id="@+id/viewPantryItemsBtn"
         style="@android:style/Widget.Button"
-        android:layout_width="330dp"
+        android:layout_width="320dp"
         android:layout_height="110dp"
         android:background="#E91E63"
         android:backgroundTint="@null"
@@ -60,7 +61,7 @@
     <Button
         android:id="@+id/recipeCollectionBtn"
         style="@android:style/Widget.Button"
-        android:layout_width="330dp"
+        android:layout_width="320dp"
         android:layout_height="110dp"
         android:background="#4CAF50"
         android:text="@string/recipe_collection"

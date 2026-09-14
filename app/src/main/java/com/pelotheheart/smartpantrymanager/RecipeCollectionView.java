@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,40 +11,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
-    Button manageItemsBtn, viewItemsBtn, recipeCollectionBtn;
+public class RecipeCollectionView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_recipe_collection_view);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-
-        // Link home screen buttons
-        manageItemsBtn = findViewById(R.id.manageItemsBtn);
-        viewItemsBtn = findViewById(R.id.viewPantryItemsBtn);
-        recipeCollectionBtn = findViewById(R.id.recipeCollectionBtn);
-
-        manageItemsBtn.setOnClickListener(V->{
-            startActivity(new Intent(MainActivity.this, ManagePantryItems.class)); // Button click navigates to Manage Pantry Items activity
-
-        });
-
-        viewItemsBtn.setOnClickListener(V->{
-            startActivity(new Intent(MainActivity.this, PantryItemsView.class)); // Button click navigates to View Pantry Items activity
-        });
-
-        recipeCollectionBtn.setOnClickListener(V->{
-            startActivity(new Intent(MainActivity.this, PantryItemsView.class)); // Button click navigates to Recipe Collection activity
-        });
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){ // Create App Menu
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -73,5 +52,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }
