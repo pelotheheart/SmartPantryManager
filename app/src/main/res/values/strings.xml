@@ -4,7 +4,11 @@
     <string name="view_pantry_items">View Pantry Items</string>
     <string name="recipe_collection">Recipe Collection</string>
     <string name="menuHome"> Home</string>>
-    <string name="menu_managePantryItems"> Manage Pantry Items</string>>
-    <string name="menu_viewPantryItems"> View Pantry Items</string>>
-    <string name="menu_recipeCollection"> Recipe Collection</string>>
+    <string name="menu_managePantryItems"> Manage Pantry Items</string>
+    <string name="menu_viewPantryItems"> View Pantry Items</string>
+    <string name="add_ingredients_btn"> ADD NEW INGREDIENTS</string>
+    <string name="del_ingredients_btn"> DELETE INGREDIENTS</string>
+    <string name="update_ingredients_btn"> UPDATE INGREDIENTS </string>
+    <string name="headerTxtAdd">ADD INGREDIENT</string>
+    <string name="headerTxtUpdate">UPDATE INGREDIENT</string>
 </resources>

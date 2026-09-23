@@ -1,10 +1,12 @@
 package com.pelotheheart.smartpantrymanager;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,34 +14,57 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ManagePantryItems extends AppCompatActivity {
-    Button addIngredientBtn, updateIngredientBtn, delIngredientBtn;
+import java.util.Calendar;
+import java.util.Objects;
 
+public class AddIngredientActivity extends AppCompatActivity {
+    TextView headerTxt;
+    EditText xdtPicker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_manage_pantry_items);
+        setContentView(R.layout.activity_add_ingredient);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Get layout components
+        headerTxt = findViewById(R.id.addUpdateTitle);
+        xdtPicker = findViewById(R.id.xdtPicker);
 
-        // get buttons on activity
-        addIngredientBtn = findViewById(R.id.addIngredientsBtn);
-        updateIngredientBtn = findViewById(R.id.updateIngredientsBtn);
-        delIngredientBtn = findViewById(R.id.delIngredientsBtn);
+        // add click listener for date picker
+        xdtPicker.setOnClickListener(v->{
+            // Method gets ingredient expiry date from user
 
-        // add button action listeners
-        addIngredientBtn.setOnClickListener(v->{
-            Intent i = new Intent(ManagePantryItems.this, AddIngredientActivity.class);
-            i.putExtra("mode", "add"); // navigates to add ingredient activity with intent to add new ingredient
-            startActivity(i);
+            Calendar c = Calendar.getInstance(); // to set default date in date picker
+            int year = c.get(Calendar.YEAR), month = c.get(Calendar.MONTH), day = c.get(Calendar.DAY_OF_MONTH);
+
+            //
+            DatePickerDialog dtDial = new DatePickerDialog(AddIngredientActivity.this,
+                    (view , y , m, d)->{
+                        m += 1; // adjust value of month because of 0 based index
+
+                        String dtFormat = String.format("%04d-%02d-%02d", y, m, d); // set date format
+                        xdtPicker.setText(dtFormat); // display formatted date in layout
+                    }, year, month, day);
+
+            dtDial.show(); // display date picker dialog
         });
 
+        // get mode to see if activity is to add or update ingredients
+        String mode = getIntent().getStringExtra("mode");
+
+        if(Objects.equals(mode, "add")){ // set header text to ADD INGREDIENTS if mode is add
+            headerTxt.setText(R.string.headerTxtAdd);
+
+        }else{ // otherwise header text is UPDATE INGREDIENT
+            headerTxt.setText(R.string.headerTxtUpdate);
+        }
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){ // Create App Menu
@@ -68,5 +93,4 @@ public class ManagePantryItems extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }
