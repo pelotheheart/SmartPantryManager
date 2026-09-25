@@ -1,5 +1,6 @@
 package com.pelotheheart.smartpantrymanager;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -45,10 +46,10 @@ public class SmartPantryDB extends SQLiteOpenHelper {
 
         // SQL to create recipe ingredients table (Joins ingredients with recipes)
         String recipe_ingredients_sql = "CREATE TABLE "+RECIPE_INGREDIENTS_TABLE+ " ("
-                +COL_REC_ID+" INTEGER NOT NULL,"
-                +COL_INGR_ID+" INTEGER NOT NULL,"
-                +"FOREIGN KEY ("+COL_REC_ID+") REFERENCES "+RECIPE_TABLE+" ("+COL_REC_ID+"),"
-                +"FOREIGN KEY ("+COL_INGR_ID+") REFERENCES "+INGREDIENTS_TABLE+" ("+COL_INGR_ID+"))";
+                +"rec_id INTEGER NOT NULL,"
+                +"ingr_id INTEGER NOT NULL,"
+                +"FOREIGN KEY (rec_id) REFERENCES "+RECIPE_TABLE+" ("+COL_REC_ID+"),"
+                +"FOREIGN KEY (ingr_id) REFERENCES "+INGREDIENTS_TABLE+" ("+COL_INGR_ID+"))";
         // Execute sql
         db.execSQL(ingred_table_sql);
         db.execSQL(recipes_table_sql);
@@ -62,7 +63,14 @@ public class SmartPantryDB extends SQLiteOpenHelper {
     }
 
     public boolean insertIngredient(Ingredient ingredient){
-        return true;
+        SQLiteDatabase db = this.getWritableDatabase(); // Get database to insert values
+
+        ContentValues cv  = new ContentValues(); // Create map of column names and values to be inserted
+        cv.put(COL_INGR_NAME, ingredient.getIngredientName());
+        cv.put(COL_INGR_QTY, ingredient.getIngredientQty());
+        cv.put(COL_XDT, ingredient.getExpiryDate());
+
+        return db.insert(INGREDIENTS_TABLE, null, cv) != -1;// execute query and return true if successful otherwise false
     }
 
     public boolean updateIngredient(Ingredient ingredient){
