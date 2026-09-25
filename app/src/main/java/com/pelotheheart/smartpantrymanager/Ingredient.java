@@ -1,5 +1,7 @@
 package com.pelotheheart.smartpantrymanager;
 
+import androidx.annotation.NonNull;
+
 public class Ingredient {
     private int ingredientID;
 
@@ -46,5 +48,11 @@ public class Ingredient {
     }
     public String getExpiryDate() {
         return expiryDate;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getIngredientName()+" | "+getIngredientQty()+" | "+getExpiryDate();
     }
 }
