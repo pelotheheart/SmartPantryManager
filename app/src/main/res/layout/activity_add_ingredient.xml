@@ -8,14 +8,15 @@
     tools:context=".AddIngredientActivity">
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/ingredientQtyED"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:ems="10"
+        android:hint="Enter Quantity"
         android:inputType="number"
         android:minHeight="48dp"
-        android:text="Enter Quantity"
+        android:textColorHint="#595454"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/xdtLbl"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,9 +54,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:ems="10"
+        android:hint="@string/enter_ingredient_name"
         android:inputType="text"
         android:minHeight="48dp"
-        android:text="Enter Ingredient Name"
+        android:textColorHint="#5D5B5B"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/qtyLbl"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +71,7 @@
         android:text="Quantity"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editTextNumber"
+        app:layout_constraintBottom_toTopOf="@+id/ingredientQtyED"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -86,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/saveIngredBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="136dp"
@@ -105,13 +107,24 @@
         android:focusable="false"
         android:inputType="text"
         android:minHeight="48dp"
-        android:text="YYYY-MM-DD"
+        android:hint="YYYY-MM-DD"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/saveIngredBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/xdtLbl"
         app:layout_constraintVertical_bias="0.136" />
+
+    <TextView
+        android:id="@+id/resultView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/saveIngredBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xdtPicker" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
