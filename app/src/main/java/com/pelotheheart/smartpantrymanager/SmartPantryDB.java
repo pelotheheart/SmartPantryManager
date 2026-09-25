@@ -2,6 +2,7 @@ package com.pelotheheart.smartpantrymanager;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -75,6 +76,8 @@ public class SmartPantryDB extends SQLiteOpenHelper {
 
     public boolean updateIngredient(Ingredient ingredient){
 
+
+
         return  true;
     }
 
@@ -82,13 +85,33 @@ public class SmartPantryDB extends SQLiteOpenHelper {
         return true;
     }
 
-    public Ingredient getIngredient(){
-
-        return  new Ingredient();
-    }
     public ArrayList<Ingredient> getIngredients(){
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
 
-        return  new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase(); // Get database to retrieve ingredients
+
+        Cursor results = db.rawQuery("SELECT * FROM "+INGREDIENTS_TABLE, null); // execute query
+
+        if(results.moveToFirst()){ // check if any results are returned
+            int idCol = results.getColumnIndex(COL_INGR_ID);
+            int nameCOl = results.getColumnIndex(COL_INGR_NAME);
+            int qtyCol = results.getColumnIndex(COL_INGR_QTY);
+            int xdtCol = results.getColumnIndex(COL_XDT);
+            do{
+                ingredients.add(new Ingredient(
+
+                        results.getInt(idCol),
+                        results.getString(nameCOl),
+                        results.getString(xdtCol),
+                        results.getInt(qtyCol)
+
+                ));
+
+            }while(results.moveToNext());
+        }
+
+        results.close();
+        return ingredients;
     }
 
     public boolean insertRecipe(Recipe recipe){
