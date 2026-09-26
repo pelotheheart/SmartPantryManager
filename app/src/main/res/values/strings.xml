@@ -15,4 +15,6 @@
     <string name="enter_ingredient_name">Enter ingredient name</string>
     <string name="updateItemHeaderTxt">Select Pantry Item To Update</string>
     <string name="deleteItemHeaderTxt">Press and Hold Pantry Item To Delete</string>
+    <string name="deleteItemBtnText">Delete</string>
+    <string name="editItemBtnText">Edit</string>
 </resources>

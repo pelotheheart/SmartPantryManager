@@ -20,7 +20,6 @@ import java.util.Objects;
 public class PantryItemsView extends AppCompatActivity {
     ListView pantryItemsLV;
     SmartPantryDB dbHelper;
-    TextView headerTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +31,6 @@ public class PantryItemsView extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        headerTxt = findViewById(R.id.pantryItemsHeaderTxt); // Get textview for header text
-        String mode = getIntent().getStringExtra("mode"); // get intent mode set by which button user clicked to navigate
-
-        if (mode.equals("update")){ // Set header text depending on intent mode
-            headerTxt.setText(R.string.updateItemHeaderTxt);
-
-        }else if(mode.equals("delete")){
-            headerTxt.setText(R.string.deleteItemHeaderTxt);
-        }else{
-            headerTxt.setText(R.string.headerTextPantryItems);
-        }
-
 
         dbHelper = new SmartPantryDB(this); // database helper instance
         initListView();

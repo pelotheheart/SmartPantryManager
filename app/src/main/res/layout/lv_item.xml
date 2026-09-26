@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
+    <!-- Ingredient icon + details -->
     <LinearLayout
         android:id="@+id/rowContainer"
         android:layout_width="0dp"
@@ -16,14 +17,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-
         <ImageView
             android:id="@+id/ingredIcon"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginEnd="12dp"
             android:src="@drawable/shopping_bag_small" />
-
 
         <LinearLayout
             android:layout_width="0dp"
@@ -56,13 +55,46 @@
 
     </LinearLayout>
 
+    <!-- Edit/Delete buttons -->
+    <LinearLayout
+        android:id="@+id/modificationBtnsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/rowContainer"
+        app:layout_constraintBottom_toTopOf="@+id/separator"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/editItemBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2196F3"
+            android:text="@string/editItemBtnText"
+            android:textColor="#FCFFFFFF" />
+
+        <Button
+            android:id="@+id/delItemBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="#FF0000"
+            android:text="@string/deleteItemBtnText"
+            android:textColor="#F5FFFFFF" />
+
+    </LinearLayout>
+
+    <!-- Separator line -->
     <TextView
         android:id="@+id/separator"
         android:layout_width="0dp"
         android:layout_height="5dp"
+        android:layout_marginTop="8dp"
         android:background="#999999"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rowContainer" />
+        app:layout_constraintTop_toBottomOf="@id/modificationBtnsContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
