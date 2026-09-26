@@ -13,4 +13,6 @@
     <string name="headerTxtUpdate">UPDATE INGREDIENT</string>
     <string name="headerTextPantryItems">PANTRY ITEMS</string>
     <string name="enter_ingredient_name">Enter ingredient name</string>
+    <string name="updateItemHeaderTxt">Select Pantry Item To Update</string>
+    <string name="deleteItemHeaderTxt">Press and Hold Pantry Item To Delete</string>
 </resources>

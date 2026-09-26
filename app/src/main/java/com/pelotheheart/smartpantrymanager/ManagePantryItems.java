@@ -39,6 +39,20 @@ public class ManagePantryItems extends AppCompatActivity {
         });
 
 
+        updateIngredientBtn.setOnClickListener(v->{
+            Intent i = new Intent(ManagePantryItems.this, PantryItemsView.class);
+            i.putExtra("mode", "update"); // Set mode to modify header text
+            startActivity(i);
+
+        });
+
+        delIngredientBtn.setOnClickListener(v->{
+            Intent i = new Intent(ManagePantryItems.this, PantryItemsView.class);
+            i.putExtra("mode", "delete");  // set mode to modify header text
+            startActivity(i);
+        });
+
+
     }
 
     @Override
