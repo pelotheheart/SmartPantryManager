@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +13,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+
 public class PantryItemsView extends AppCompatActivity {
+    ListView pantryItemsLV;
+    SmartPantryDB dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +29,19 @@ public class PantryItemsView extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        dbHelper = new SmartPantryDB(this); // database helper instance
+        initListView();
+    }
+
+    protected void initListView(){
+        pantryItemsLV = findViewById(R.id.pantryItemsListView); // reference to list view
+
+        ArrayList<Ingredient> ingredientsList = dbHelper.getIngredients(); // get all ingredients
+
+        ArrayAdapter<Ingredient> lvAdapter = new IngredientsAdapter(this, ingredientsList); // Ingredients adapter instance
+
+        pantryItemsLV.setAdapter(lvAdapter); // assign adapter instance to listview
     }
 
     @Override

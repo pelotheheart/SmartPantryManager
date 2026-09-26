@@ -11,4 +11,6 @@
     <string name="update_ingredients_btn"> UPDATE INGREDIENTS </string>
     <string name="headerTxtAdd">ADD INGREDIENT</string>
     <string name="headerTxtUpdate">UPDATE INGREDIENT</string>
+    <string name="headerTextPantryItems">PANTRY ITEMS</string>
+    <string name="enter_ingredient_name">Enter ingredient name</string>
 </resources>
