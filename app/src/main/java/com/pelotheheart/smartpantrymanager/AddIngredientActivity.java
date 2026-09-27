@@ -25,7 +25,7 @@ public class AddIngredientActivity extends AppCompatActivity {
     EditText xdtPicker, qtyED, nameED;
     Button saveIngredientBtn;
     SmartPantryDB dbHelper; // DB helper instance
-
+    int ingredientID = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,31 +84,52 @@ public class AddIngredientActivity extends AppCompatActivity {
 
             if(!errors){
 
-                Ingredient newIngredient = new Ingredient(ingredientName, expiry, qty);
 
-                if(dbHelper.insertIngredient(newIngredient)){
-                    // Show success message if ingredient added successfully
-                    resultView.setText("Ingredient Added");
-                    resultView.setTextColor(Color.GREEN);
-                    // Clear input fields
-                    nameED.setText("");
-                    qtyED.setText("");
-                    xdtPicker.setText("");
 
-                }else{
-                    //
-                    resultView.setText("Error adding ingredient. Try again");
-                    resultView.setTextColor(Color.RED);
+                if(Objects.equals(getIntent().getStringExtra("mode"), "update")){
+                    // If we're in update ingredient mode proceed to update existing ingredient
+                    Ingredient updatedIngredient = new Ingredient(ingredientID,ingredientName, expiry, qty);
+
+                    if(dbHelper.updateIngredient(updatedIngredient)){
+                        // Show success message if ingredient added successfully
+                        resultView.setText("Ingredient Updated Successfully");
+                        resultView.setTextColor(Color.GREEN);
+                        // Clear input fields
+                        nameED.setText("");
+                        qtyED.setText("");
+                        xdtPicker.setText("");
+
+                    }else{
+                        //
+                        resultView.setText("Error updating ingredient. Try again");
+                        resultView.setTextColor(Color.RED);
+                    }
+
+
+                }else{ // If we're in add new ingredient mode proceed to add new ingredient
+
+                    Ingredient newIngredient = new Ingredient(ingredientName, expiry, qty);
+
+                    if(dbHelper.insertIngredient(newIngredient)){
+                        // Show success message if ingredient added successfully
+                        resultView.setText("Ingredient Added");
+                        resultView.setTextColor(Color.GREEN);
+                        // Clear input fields
+                        nameED.setText("");
+                        qtyED.setText("");
+                        xdtPicker.setText("");
+
+                    }else{
+                        //
+                        resultView.setText("Error adding ingredient. Try again");
+                        resultView.setTextColor(Color.RED);
+                    }
                 }
 
 
             }else{
                 resultView.setTextColor(Color.RED);
             }
-
-
-
-
 
         });
 
@@ -118,14 +139,28 @@ public class AddIngredientActivity extends AppCompatActivity {
         // get mode to see if activity is to add or update ingredients
         String mode = getIntent().getStringExtra("mode");
 
-        if(Objects.equals(mode, "add")){ // set header text to ADD INGREDIENTS if mode is add
+        if(Objects.equals(mode, "update")){ // set header text to UPDATE INGREDIENTS if mode is update
+            headerTxt.setText(R.string.headerTxtUpdate);
+            initInputFields();
+
+
+        }else{ // otherwise header text is ADD INGREDIENT
             headerTxt.setText(R.string.headerTxtAdd);
 
-        }else{ // otherwise header text is UPDATE INGREDIENT
-            headerTxt.setText(R.string.headerTxtUpdate);
         }
     }
 
+    private void initInputFields(){
+        ingredientID =  getIntent().getIntExtra("id", 0);
+        String name = getIntent().getStringExtra("name");
+        int qty = getIntent().getIntExtra("qty", 0);
+        String xdt = getIntent().getStringExtra("xdt");
+        // Initialize input fields with values from DB
+        nameED.setText(name);
+        qtyED.setText(String.valueOf(qty));
+        xdtPicker.setText(xdt);
+
+    }
     private void initDatePicker(){
         // add click listener for date picker
         xdtPicker.setOnClickListener(v->{

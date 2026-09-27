@@ -75,14 +75,21 @@ public class SmartPantryDB extends SQLiteOpenHelper {
     }
 
     public boolean updateIngredient(Ingredient ingredient){
+        SQLiteDatabase db = this.getWritableDatabase(); // Get database to update ingredient details
+        ContentValues cv = new ContentValues();
 
+        cv.put(COL_INGR_NAME, ingredient.getIngredientName());
+        cv.put(COL_INGR_QTY, ingredient.getIngredientQty());
+        cv.put(COL_XDT, ingredient.getExpiryDate());
 
-
-        return  true;
+        // return true if ingredient row was updated, otherwise false
+        return db.update(INGREDIENTS_TABLE, cv, COL_INGR_ID+"=?", new String[]{ String.valueOf(ingredient.getIngredientID()) }) > 0;
     }
 
     public boolean deleteIngredient(Ingredient ingredient){
-        return true;
+        SQLiteDatabase db = this.getWritableDatabase(); // Get database to delete items
+
+        return db.delete(INGREDIENTS_TABLE, COL_INGR_ID+"=?", new String[]{ String.valueOf(ingredient.getIngredientID()) }) > 0;
     }
 
     public ArrayList<Ingredient> getIngredients(){
@@ -115,6 +122,8 @@ public class SmartPantryDB extends SQLiteOpenHelper {
     }
 
     public boolean insertRecipe(Recipe recipe){
+
+
 
       return true;
     }
