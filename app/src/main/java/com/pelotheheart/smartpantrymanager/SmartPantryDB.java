@@ -16,9 +16,9 @@ public class SmartPantryDB extends SQLiteOpenHelper {
     // Tables in the DB
     private final String RECIPE_TABLE = "recipe_collection", INGREDIENTS_TABLE = "ingredients", RECIPE_INGREDIENTS_TABLE ="recipe_ingredients";
     // Column names for ingredients table
-    private final String COL_INGR_ID="id", COL_INGR_NAME ="name", COL_INGR_QTY = "qty", COL_XDT = "expiry_date";
+    private final String COL_INGR_ID="ingr_id", COL_INGR_NAME ="name", COL_INGR_QTY = "qty", COL_XDT = "expiry_date";
     //Column names for recipes table
-    private  final String COL_REC_ID = "id", COL_REC_TITLE =  "title", COL_REC_DESC = "instructions";
+    private  final String COL_REC_ID = "rec_id", COL_REC_TITLE =  "title", COL_REC_DESC = "instructions";
 
     public SmartPantryDB(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -47,9 +47,10 @@ public class SmartPantryDB extends SQLiteOpenHelper {
 
         // SQL to create recipe ingredients table (Joins ingredients with recipes)
         String recipe_ingredients_sql = "CREATE TABLE "+RECIPE_INGREDIENTS_TABLE+ " ("
+                +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 +"rec_id INTEGER NOT NULL,"
                 +"ingr_id INTEGER NOT NULL,"
-                +"FOREIGN KEY (rec_id) REFERENCES "+RECIPE_TABLE+" ("+COL_REC_ID+"),"
+                +"FOREIGN KEY (rec_id) REFERENCES "+RECIPE_TABLE+" ("+COL_REC_ID+")  ON DELETE CASCADE,"
                 +"FOREIGN KEY (ingr_id) REFERENCES "+INGREDIENTS_TABLE+" ("+COL_INGR_ID+"))";
         // Execute sql
         db.execSQL(ingred_table_sql);
@@ -122,11 +123,43 @@ public class SmartPantryDB extends SQLiteOpenHelper {
     }
 
     public boolean insertRecipe(Recipe recipe){
+        boolean result = false;
 
+        SQLiteDatabase db = this.getWritableDatabase(); // Get database to insert values
 
+        ContentValues cv  = new ContentValues(); // Create map of column names and values to be inserted
+        cv.put(COL_REC_TITLE, recipe.getTitle());
+        cv.put(COL_REC_DESC, recipe.getDescription());
 
-      return true;
+        long recipe_id = db.insert(RECIPE_TABLE, null, cv);
+        if (recipe_id != -1 ){ // if recipe successfully added, proceed to add recipe ingredients
+
+            if(insertRecipeIngredients(recipe_id, recipe.getIngredients())){
+                result = true; // if recipe & ingredients successfully added, return true
+            }
+        }
+
+        return  result;
     }
+
+    public boolean insertRecipeIngredients(long rec_id, ArrayList<Ingredient> ingredients){
+
+        SQLiteDatabase db = this.getWritableDatabase(); // Get database to insert values
+
+
+        for(Ingredient ingr: ingredients){
+            ContentValues cv  = new ContentValues(); // Create map of column names and values to be inserted
+            cv.put(COL_REC_ID, rec_id);
+            cv.put(COL_INGR_ID, ingr.getIngredientID());
+
+            if (db.insert(RECIPE_INGREDIENTS_TABLE, null, cv) == -1 ){  // if any recipe ingredient insert fails, return false
+                return false;
+            }
+        }
+
+        return  true; // return true if all recipe ingredients inserted successfully
+    }
+
 
     public boolean updateRecipe(Recipe recipe){
 
@@ -136,10 +169,38 @@ public class SmartPantryDB extends SQLiteOpenHelper {
         return new Recipe();
     }
     public ArrayList<Recipe> getAllRecipes(){
-        return new ArrayList<>();
+
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase(); // Get database to retrieve ingredients
+
+        Cursor results = db.rawQuery("SELECT * FROM "+RECIPE_TABLE, null); // execute query
+
+        if(results.moveToFirst()){ // check if any results are returned
+            int idCol = results.getColumnIndex(COL_REC_ID);
+            int titleCOl = results.getColumnIndex(COL_REC_TITLE);
+            int descCol = results.getColumnIndex(COL_REC_DESC);
+
+            do{
+                recipeList.add(new Recipe(
+                        results.getInt(idCol),
+                        results.getString(titleCOl),
+                        results.getString(descCol)
+                ));
+
+            }while(results.moveToNext());
+        }
+
+        results.close();
+        return recipeList;
+
     }
-    public boolean deletRecipe(Recipe recipe){
-        return true;
+    public boolean deleteRecipe(Recipe recipe){
+
+        SQLiteDatabase db = this.getWritableDatabase(); // Get database to delete items
+
+        return db.delete(RECIPE_TABLE, COL_REC_ID+"=?", new String[]{ String.valueOf(recipe.getRecipeID()) }) > 0;
+
     }
 
 }
