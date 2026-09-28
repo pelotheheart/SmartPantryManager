@@ -17,4 +17,12 @@
     <string name="deleteItemHeaderTxt">Press and Hold Pantry Item To Delete</string>
     <string name="deleteItemBtnText">Delete</string>
     <string name="editItemBtnText">Edit</string>
+    <string name="headerTextAddRecipe">ADD RECIPE</string>
+    <string name="labelRecipeName">Recipe Name</string>
+    <string name="hintRecipeNameED">Enter recipe name</string>
+    <string name="labelRecipeInstructions">Recipe Instructions</string>
+    <string name="hintRecipeInstructionsED">Enter recipe instruction</string>
+    <string name="textSaveBtn">ADD RECIPE INGREDIENTS</string>
+    <string name="textSaveRecipeBtn">SAVE RECIPE</string>
+    <string name="headerTextRecipeIngredient">Select/Add Recipe Ingredients</string>
 </resources>

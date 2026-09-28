@@ -137,6 +137,7 @@ public class SmartPantryDB extends SQLiteOpenHelper {
             if(insertRecipeIngredients(recipe_id, recipe.getIngredients())){
                 result = true; // if recipe & ingredients successfully added, return true
             }
+
         }
 
         return  result;

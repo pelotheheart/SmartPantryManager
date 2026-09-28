@@ -28,6 +28,14 @@ public class Recipe {
         this.ingredients =ingredientsList;
     }
 
+    public void addIngredient(Ingredient ingredient){ // adds ingredient to ingredients list
+        this.ingredients.add(ingredient);
+    }
+
+    public void removeIngredient(Ingredient ingredient){ // removes ingredient from ingredients list
+        this.ingredients.remove(ingredient);
+    }
+
     // Getters
 
     public int getRecipeID() {
