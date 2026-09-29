@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         recipeCollectionBtn.setOnClickListener(V->{
-            startActivity(new Intent(MainActivity.this, PantryItemsView.class)); // Button click navigates to Recipe Collection activity
+            startActivity(new Intent(MainActivity.this, RecipeCollectionView.class)); // Button click navigates to Recipe Collection activity
         });
 
     }
