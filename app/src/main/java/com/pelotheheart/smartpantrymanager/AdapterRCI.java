@@ -40,7 +40,7 @@ public class AdapterRCI extends ArrayAdapter<Ingredient> {
         ImageView icon = cv.findViewById(R.id.ingredIcon);
         icon.setImageResource(R.drawable.shopping_bag_small);
 
-        TextView titleView = cv.findViewById(R.id.ingredientName);
+        TextView titleView = cv.findViewById(R.id.lvRecipeName);
         titleView.setText(String.format("%s", ingredient.getIngredientName()));
 
         CheckBox ingredientCB = cv.findViewById(R.id.ingredientCheckBox); // get ingredient checkbox

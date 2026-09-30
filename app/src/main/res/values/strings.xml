@@ -25,4 +25,11 @@
     <string name="textSaveBtn">ADD RECIPE INGREDIENTS</string>
     <string name="textSaveRecipeBtn">SAVE RECIPE</string>
     <string name="headerTextRecipeIngredient">Select/Add Recipe Ingredients</string>
+    <string name="headerTextRecipeCollection">Recipe Collection</string>
+    <string name="addRecipeBtnTxt">ADD RECIPE</string>
+    <string name="suggestedRecipeBtnText">SUGGESTED</string>
+    <string name="viewAllRecipeBtnTxt">VIEW ALL</string>
+    <string name="feedbackTxtRecipeCollection">No recipes found</string>
+    <string name="lvTextRecipeName">Recipe name</string>
+    <string name="viewRecipeBtnText">View Details</string>
 </resources>

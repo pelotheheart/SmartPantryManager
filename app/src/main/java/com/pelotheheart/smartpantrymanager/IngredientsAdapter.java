@@ -1,14 +1,11 @@
 package com.pelotheheart.smartpantrymanager;
 
-import static androidx.core.content.ContextCompat.createAttributionContext;
 import static androidx.core.content.ContextCompat.startActivities;
-import static androidx.core.content.ContextCompat.startActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +45,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> {
         ImageView icon = cv.findViewById(R.id.ingredIcon);
         icon.setImageResource(R.drawable.shopping_bag_small);
 
-        TextView titleView = cv.findViewById(R.id.listItem_title);
+        TextView titleView = cv.findViewById(R.id.lvRecipeName);
         titleView.setText(String.format("Name: %s", ingredient.getIngredientName()));
 
         TextView qtyView = cv.findViewById(R.id.listitem_qty);

@@ -8,38 +8,32 @@
 
     <LinearLayout
         android:id="@+id/rowContainer"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:id="@+id/ingredIcon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="12dp"
-            android:src="@drawable/shopping_bag_small" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/viewRecipeDetailBtn">
 
         <TextView
             android:id="@+id/lvRecipeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ingredient name"
+            android:text="@string/lvTextRecipeName"
             android:textColor="#020202"
             android:textSize="16sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/ingredientCheckBox"
+    <Button
+        android:id="@+id/viewRecipeDetailBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#03A9F4"
+        android:text="@string/viewRecipeBtnText"
+        android:textColor="#FFFFFF"
         android:layout_marginEnd="8dp"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
         app:layout_constraintTop_toTopOf="@id/rowContainer"
         app:layout_constraintBottom_toBottomOf="@id/rowContainer"
         app:layout_constraintEnd_toEndOf="parent" />
