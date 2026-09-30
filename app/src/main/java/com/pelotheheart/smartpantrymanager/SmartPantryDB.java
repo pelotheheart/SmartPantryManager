@@ -101,11 +101,14 @@ public class SmartPantryDB extends SQLiteOpenHelper {
         Cursor results = db.rawQuery("SELECT * FROM "+INGREDIENTS_TABLE, null); // execute query
 
         if(results.moveToFirst()){ // check if any results are returned
+
+            // use column names to get their index in returned results
             int idCol = results.getColumnIndex(COL_INGR_ID);
             int nameCOl = results.getColumnIndex(COL_INGR_NAME);
             int qtyCol = results.getColumnIndex(COL_INGR_QTY);
             int xdtCol = results.getColumnIndex(COL_XDT);
-            do{
+
+            do{  // loop through results, create ingredient instance and add to ingredients list
                 ingredients.add(new Ingredient(
 
                         results.getInt(idCol),
@@ -166,14 +169,33 @@ public class SmartPantryDB extends SQLiteOpenHelper {
 
         return true;
     }
-    public Recipe getRecipe(){
-        return new Recipe();
+    public Recipe getRecipe(int id){
+        SQLiteDatabase db = this.getReadableDatabase(); // Get database to retrieve reciped
+
+        Cursor results = db.rawQuery("SELECT * FROM "+RECIPE_TABLE+" WHERE "+COL_REC_ID+"=?", new String[]{ String.valueOf(id) } ); // execute query
+
+        Recipe recipe = null;
+
+        if(results.moveToFirst()){ // check if any results are returned
+            int idCol = results.getColumnIndex(COL_REC_ID);
+            int titleCOl = results.getColumnIndex(COL_REC_TITLE);
+            int descCol = results.getColumnIndex(COL_REC_DESC);
+
+            recipe = new Recipe(
+                        results.getInt(idCol),
+                        results.getString(titleCOl),
+                        results.getString(descCol)
+                );
+
+        }
+
+        return recipe;
     }
     public ArrayList<Recipe> getAllRecipes(){
 
         ArrayList<Recipe> recipeList = new ArrayList<>();
 
-        SQLiteDatabase db = this.getReadableDatabase(); // Get database to retrieve ingredients
+        SQLiteDatabase db = this.getReadableDatabase(); // Get database to retrieve recipes
 
         Cursor results = db.rawQuery("SELECT * FROM "+RECIPE_TABLE, null); // execute query
 
@@ -183,6 +205,47 @@ public class SmartPantryDB extends SQLiteOpenHelper {
             int descCol = results.getColumnIndex(COL_REC_DESC);
 
             do{
+                recipeList.add(new Recipe(
+                        results.getInt(idCol),
+                        results.getString(titleCOl),
+                        results.getString(descCol)
+                ));
+
+            }while(results.moveToNext());
+        }
+
+        results.close();
+        return recipeList;
+
+    }
+
+    public ArrayList<Recipe> getSuggestedRecipes(){
+
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase(); // Get database to retrieve ingredients
+        // Query to select recipes with all ingredients available, availability depends on quantity being 1 or more
+        String sql =
+                "SELECT rec." + COL_REC_ID + ", rec." + COL_REC_TITLE + ", rec." + COL_REC_DESC +
+                        " FROM " + RECIPE_TABLE + " rec" +
+                        " JOIN " + RECIPE_INGREDIENTS_TABLE + " rec_ingr ON rec." + COL_REC_ID + " = rec_ingr.rec_id" +
+                        " JOIN " + INGREDIENTS_TABLE + " ingr ON rec_ingr.ingr_id = ingr." + COL_INGR_ID +
+                        " WHERE ingr." + COL_INGR_QTY + " > 0" +
+                        " GROUP BY rec." + COL_REC_ID +
+                        " HAVING COUNT(rec_ingr.ingr_id) = (" +
+                        "SELECT COUNT(*) FROM " + RECIPE_INGREDIENTS_TABLE +
+                        " WHERE rec_id = rec." + COL_REC_ID +
+                        ")";
+
+
+        Cursor results = db.rawQuery(sql, null); // execute query
+
+        if(results.moveToFirst()){ // check if any results are returned
+            int idCol = results.getColumnIndex(COL_REC_ID);
+            int titleCOl = results.getColumnIndex(COL_REC_TITLE);
+            int descCol = results.getColumnIndex(COL_REC_DESC);
+
+            do{ // look through list or recipes and return list at the end
                 recipeList.add(new Recipe(
                         results.getInt(idCol),
                         results.getString(titleCOl),
